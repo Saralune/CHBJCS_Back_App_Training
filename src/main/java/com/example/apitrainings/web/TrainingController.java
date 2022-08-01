@@ -3,14 +3,11 @@ package com.example.apitrainings.web;
 
 import com.example.apitrainings.Entities.Training;
 import com.example.apitrainings.service.ImplTrainingService;
-import com.example.apitrainings.service.RecordNotFoundException;
+import com.example.apitrainings.Exceptions.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController

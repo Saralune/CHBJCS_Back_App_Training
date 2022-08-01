@@ -1,8 +1,10 @@
 package com.example.apitrainings.service;
 
+import com.example.apitrainings.Entities.Category;
 import com.example.apitrainings.Entities.Order;
 import com.example.apitrainings.Entities.OrderItem;
 import com.example.apitrainings.Entities.Training;
+import com.example.apitrainings.dao.CategoryRepository;
 import com.example.apitrainings.dao.OrderItemRepository;
 import com.example.apitrainings.dao.OrderRepository;
 import com.example.apitrainings.dao.TrainingRepository;
@@ -24,6 +26,9 @@ public class ImplTrainingService implements ITrainingService {
 
     @Autowired
     OrderItemRepository orderItemRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Override
     public List<Training> getTrainings() {
@@ -75,5 +80,19 @@ public class ImplTrainingService implements ITrainingService {
         return orderItemRepository.findAll();
     }
 
+// category
+@Override
+public Category getCategoryById(Long catId) {
+    return categoryRepository.findById(catId).get();
+}
 
+    @Override
+    public Category getCategoryByName(String catName) {
+        return null;// categoryRepository.findByName(catName);
+    }
+
+    @Override
+    public List<Category> readAllCategories() {
+        return categoryRepository.findAll();
+    }
 }

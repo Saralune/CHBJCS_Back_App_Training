@@ -1,12 +1,8 @@
 package com.example.apitrainings;
 
-import com.example.apitrainings.Entities.Category;
-import com.example.apitrainings.Entities.Training;
 import com.example.apitrainings.dao.CategoryRepository;
 import com.example.apitrainings.dao.TrainingRepository;
 import com.example.apitrainings.downupload.FileUploadProperties;
-import com.example.apitrainings.service.ICategoryService;
-import com.example.apitrainings.service.ITrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;

@@ -1,4 +1,4 @@
-package com.example.apitrainings.service;
+package com.example.apitrainings.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

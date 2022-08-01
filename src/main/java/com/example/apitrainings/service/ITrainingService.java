@@ -1,5 +1,6 @@
 package com.example.apitrainings.service;
 
+import com.example.apitrainings.Entities.Category;
 import com.example.apitrainings.Entities.Order;
 import com.example.apitrainings.Entities.OrderItem;
 import com.example.apitrainings.Entities.Training;
@@ -31,4 +32,12 @@ public interface ITrainingService {
     List<Order> getOrders();
 
     List<OrderItem> getOrderItems();
+
+    // category
+
+    public Category getCategoryById (Long catId);
+
+    public Category getCategoryByName (String catName);
+
+    public List<Category> readAllCategories();
 }
