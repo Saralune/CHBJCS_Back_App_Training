@@ -45,13 +45,13 @@ private CategoryRepository categoryRepository;
 //        categoryRepository.save(info);
 //        categoryRepository.save(other);
 //
-//        trainingRepository.save(new Training(null, "Java", "Java Standard Edition 8 sur 5 jours",3500, 1, info));
-//        trainingRepository.save(new Training(null, "DoNet", "DoNet et EntityFramework en 5 jours", 2750,1,info));
-//        trainingRepository.save(new Training(null, "PowerBi", "Business Intelligence en 5 jours", 3000, 1,info));
-//        trainingRepository.save(new Training(null, "NodeJS", "Prise en main express de NOde JS /2 jours", 1400,1,info));
-//        trainingRepository.save(new Training(null, "PHP", "Initiation dév PHP 4 jours", 1300,1,info));
-//        trainingRepository.save((new Training(null, "Python", "Formation Python 10 jours", 4000,1,info)));
-//        trainingRepository.save(new Training(null, "Srum","Formation 15 jours", 3000,1,other));
-//        trainingRepository.save(new Training(null, "Management des RH", "Formation 10 jours", 2500,1, other));
+//        trainingRepository.save(new Training(null, "Java", "Java Standard Edition 8 sur 5 jours",3500, 1,"java.png", info));
+//        trainingRepository.save(new Training(null, "DoNet", "DoNet et EntityFramework en 5 jours", 2750,1,"unknown.png",info));
+//        trainingRepository.save(new Training(null, "PowerBi", "Business Intelligence en 5 jours", 3000, 1,"unknown.png",info));
+//        trainingRepository.save(new Training(null, "NodeJS", "Prise en main express de NOde JS /2 jours", 1400,1,"nodejs.png",info));
+//        trainingRepository.save(new Training(null, "PHP", "Initiation dév PHP 4 jours", 1300,1,"php.png",info));
+//        trainingRepository.save((new Training(null, "Python", "Formation Python 10 jours", 4000,1,"python.png",info)));
+//        trainingRepository.save(new Training(null, "Scrum","Formation 15 jours", 3000,1,"unknown.png",other));
+//        trainingRepository.save(new Training(null, "Management des RH", "Formation 10 jours", 2500,1,"unknown.png", other));
     }
 }

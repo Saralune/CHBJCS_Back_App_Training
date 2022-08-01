@@ -9,19 +9,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor @ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Training implements Serializable {
 
-    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
     private double price;
     private int quantity;
+    private String imgUrl;
 
     @ManyToOne
     private Category category;
-
 
 
 }
