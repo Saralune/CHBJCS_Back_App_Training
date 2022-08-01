@@ -1,5 +1,7 @@
 package com.example.apitrainings;
 
+import com.example.apitrainings.Entities.Category;
+import com.example.apitrainings.Entities.Training;
 import com.example.apitrainings.dao.CategoryRepository;
 import com.example.apitrainings.dao.TrainingRepository;
 import com.example.apitrainings.downupload.FileUploadProperties;
@@ -50,7 +52,7 @@ private CategoryRepository categoryRepository;
 //        trainingRepository.save(new Training(null, "PowerBi", "Business Intelligence en 5 jours", 3000, 1,"unknown.png",info));
 //        trainingRepository.save(new Training(null, "NodeJS", "Prise en main express de NOde JS /2 jours", 1400,1,"nodejs.png",info));
 //        trainingRepository.save(new Training(null, "PHP", "Initiation dév PHP 4 jours", 1300,1,"php.png",info));
-//        trainingRepository.save((new Training(null, "Python", "Formation Python 10 jours", 4000,1,"python.png",info)));
+//        trainingRepository.save(new Training(null, "Python", "Formation Python 10 jours", 4000,1,"python.png",info));
 //        trainingRepository.save(new Training(null, "Scrum","Formation 15 jours", 3000,1,"unknown.png",other));
 //        trainingRepository.save(new Training(null, "Management des RH", "Formation 10 jours", 2500,1,"unknown.png", other));
     }
