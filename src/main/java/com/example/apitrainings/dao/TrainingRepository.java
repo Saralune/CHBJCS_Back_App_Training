@@ -12,6 +12,7 @@ import java.util.List;
 //@CrossOrigin
 //@CrossOrigin("*")
 //@RepositoryRestResource
+@Repository
 public interface TrainingRepository extends JpaRepository<Training, Long> {
     List<Training> findByCategoryId(Long catId);
 

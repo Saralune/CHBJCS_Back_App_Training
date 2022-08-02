@@ -1,6 +1,7 @@
 package com.example.apitrainings.Entities;
 
 
+import com.example.apitrainings.security.entities.Uuser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL) @JsonIgnore
     Collection<Order> orders;
+
+    @ManyToOne
+    private Uuser uuser;
 
     public Customer(Long customerId, String name, String firstName, String email, String address, String phone) {
         this.customerId = customerId;
