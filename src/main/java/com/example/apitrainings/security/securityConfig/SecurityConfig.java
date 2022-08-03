@@ -100,11 +100,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        http.formLogin().loginPage("/login");
 
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/**").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/saveRole").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/addRoleToUser").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/**").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers( HttpMethod.DELETE,"/api/**").hasRole("ADMIN");
+
         http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/auth/**").hasRole("USER");
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/orders").hasRole("USER");
+
+        http.authorizeHttpRequests().antMatchers("/auth/saveUser").permitAll();
         //http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
         http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/api/**").permitAll();
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/**").hasRole("ADMIN");
+
         //- http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
