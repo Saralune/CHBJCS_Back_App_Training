@@ -103,7 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/**").hasRole("ADMIN");
         http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/auth/**").hasRole("USER");
         //http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
-        //http.authorizeHttpRequests().antMatchers("/**").permitAll();
+        http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/api/**").permitAll();
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/**").hasRole("ADMIN");
         //- http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));

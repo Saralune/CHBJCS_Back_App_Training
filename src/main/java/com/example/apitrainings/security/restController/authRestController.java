@@ -43,10 +43,10 @@ public class authRestController {
         return new ResponseEntity<Rrole>(authService.saveRrole(rrole), HttpStatus.OK);
     }
 
-//    @PostMapping("/addRoleToUser")
-//    public ResponseEntity<Uuser> saveRole(@RequestBody AddRoleToUserForm addRoleToUserForm) {
-//        return new ResponseEntity<Uuser>(authService.addRoleToUser(addRoleToUserForm.user, addRoleToUserForm.role), HttpStatus.OK);
-//    }
+    @PostMapping("/addRoleToUser")
+    public ResponseEntity<Uuser> saveRole(@RequestBody AddRoleToUserForm addRoleToUserForm) {
+        return new ResponseEntity<Uuser>(authService.addRoleToUser(addRoleToUserForm.user, addRoleToUserForm.role), HttpStatus.OK);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<Uuser>> getAllUsers() {
@@ -61,6 +61,12 @@ public class authRestController {
 //
 //    }
 
+}
+
+@Data
+class AddRoleToUserForm {
+    String user;
+    String role;
 
 }
 
