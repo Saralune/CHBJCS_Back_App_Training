@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 
 /**
@@ -111,14 +112,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().antMatchers("/auth/saveUser").permitAll();
         //http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
         http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/api/**").permitAll();
+        http.authorizeHttpRequests().antMatchers( HttpMethod.POST, "/login").permitAll();
 
         //- http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
-
+        http.headers()
+                .addHeaderWriter(
+                        new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200")
+                );
     }
 
     @Bean
