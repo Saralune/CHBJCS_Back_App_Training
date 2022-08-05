@@ -2,6 +2,8 @@ package com.example.apitrainings.security.securityConfig;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.example.apitrainings.security.JWTFilter.JwtAuthenticationFilter;
@@ -16,9 +18,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -28,6 +32,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 
 /**
@@ -72,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		//PasswordEncoder passwordEncoder = passwordEncoder();
+        //PasswordEncoder passwordEncoder = passwordEncoder();
 
         auth.userDetailsService(new UserDetailsService() {
 
@@ -96,33 +105,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // http.formLogin();
+        http.cors().configurationSource(corsConfigurationSource());
         http.csrf().disable();
+
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.formLogin().loginPage("/login");
 
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/saveRole").hasRole("ADMIN");
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/auth/addRoleToUser").hasRole("ADMIN");
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/**").hasRole("ADMIN");
-        http.authorizeHttpRequests().antMatchers( HttpMethod.DELETE,"/api/**").hasRole("ADMIN");
 
-        http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/auth/**").hasRole("USER");
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST,"/api/orders").hasRole("USER");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/auth/saveRole").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/auth/addRoleToUser").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN");
+
+        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/auth/**").hasRole("USER");
+        http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/api/orders").hasRole("USER");
 
         http.authorizeHttpRequests().antMatchers("/auth/saveUser").permitAll();
-        //http.authorizeHttpRequests().antMatchers("/myCustomers/**/**").authenticated();
-        http.authorizeHttpRequests().antMatchers( HttpMethod.GET,"/api/**").permitAll();
-        http.authorizeHttpRequests().antMatchers( HttpMethod.POST, "/login").permitAll();
+        http.authorizeHttpRequests().antMatchers(HttpMethod.GET, "/api/**").permitAll();
+        http.authorizeHttpRequests().antMatchers("/login").permitAll();
 
-        //- http.exceptionHandling().accessDeniedPage("/accessDenied");
-        http.authorizeHttpRequests().anyRequest().authenticated();
+        http.authorizeHttpRequests().antMatchers("/jwt").authenticated();
+
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.headers()
-                .addHeaderWriter(
-                        new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200")
-                );
+//        http.headers()
+//                .addHeaderWriter(
+//                        new StaticHeadersWriter("Access-Control-Allow-Origin", "http://localhost:4200")
+//                );
+
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
@@ -130,5 +152,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 
 }
